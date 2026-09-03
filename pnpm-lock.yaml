@@ -21,6 +21,21 @@ importers:
         specifier: ^4.1.11
         version: 4.1.11(@types/node@26.4.1)(vite@8.2.2(@types/node@26.4.1)(esbuild@0.28.2)(tsx@4.23.13)(yaml@2.9.0))
 
+  apps/cli:
+    dependencies:
+      '@writex/contracts':
+        specifier: workspace:*
+        version: link:../../packages/contracts
+      '@writex/quality':
+        specifier: workspace:*
+        version: link:../../packages/quality
+      '@writex/workspace':
+        specifier: workspace:*
+        version: link:../../packages/workspace
+      commander:
+        specifier: ^13.1.0
+        version: 13.1.0
+
   packages/contracts: {}
 
   packages/core:
@@ -486,6 +501,10 @@ packages:
 
   chai@6.2.2:
     resolution: {integrity: sha512-NUPRluOfOiTKBKvWPtSD4PhFvWCqOi0BGStNWs57X9js7XGTprSmFoz5F0tWhR4WPjNeR9jXqdC7/UpSJTnlRg==}
+    engines: {node: '>=18'}
+
+  commander@13.1.0:
+    resolution: {integrity: sha512-/rFeCpNJQbhSZjGVwO9RFV3xPqbnERS8MmIQzCtD/zl6gpJuV/bMLuN92oG3F7d8oDEHHRrujSXNUr8fpjntKw==}
     engines: {node: '>=18'}
 
   convert-source-map@2.0.0:
@@ -1014,6 +1033,8 @@ snapshots:
   assertion-error@2.0.1: {}
 
   chai@6.2.2: {}
+
+  commander@13.1.0: {}
 
   convert-source-map@2.0.0: {}
 
