@@ -23,6 +23,15 @@ importers:
 
   packages/contracts: {}
 
+  packages/core:
+    dependencies:
+      '@writex/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      '@writex/workspace':
+        specifier: workspace:*
+        version: link:../workspace
+
   packages/quality:
     dependencies:
       '@writex/contracts':
