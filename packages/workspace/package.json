@@ -1,0 +1,13 @@
+{
+  "name": "@writex/workspace",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@writex/contracts": "workspace:*",
+    "yaml": "^2.0.0"
+  }
+}
