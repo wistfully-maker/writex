@@ -241,7 +241,7 @@ interface DshSessionDriver {
   open(workstream: WorkstreamConfig): Promise<SessionHandle>
   send(sessionId: string, message: string): Promise<MessageReceipt>
   waitForIdle(sessionId: string): Promise<SessionCheckpoint>
-  compact(sessionId: string, capsule: CompactionCapsule): Promise<void>
+  saveCompactionCapsule(sessionId: string, capsule: CompactionCapsule): Promise<void>
   close(sessionId: string): Promise<void>
 }
 ```
@@ -252,8 +252,11 @@ interface DshSessionDriver {
 - 监听 durable session events，而不是解析终端展示文本；
 - 在会话进入 idle、blocked、failed 或 cancelled 时返回；
 - 支持发送主控集中反馈；
+- 监测并记录 `compaction/*` 事件，在自动 compact 后继续使用原会话；
 - 保存会话与 workstream 的映射；
 - 防止同一工作树出现并发写入会话。
+
+当前 DSH SDK JSON-RPC 只提供 `initialize`、`session/prompt` 和 `shutdown` 请求，没有手动 compact 请求。第一版驱动器依赖 SDK profile 的自动压缩能力，并在压缩前后持久保存胶囊、监测 `compaction/*` 事件。不得把 `/compact` 当作普通模型消息发送来伪造压缩。若以后需要主控主动压缩，应通过独立的 DSH 控制插件或上游新增的正式协议方法实现。
 
 ### 11.2 临时兼容方式
 
@@ -284,7 +287,7 @@ compact_count: 0
 1. 同一 DSH `sessionId` 能连续完成两个最小相关操作和一次主控返修。测试只需使用临时夹具与确定性断言，例如先写入一个会话标记，再在后续消息中引用该标记完成修改；不得为验证驱动器而实现额外产品功能。
 2. 第二个操作不需要重新发送完整设计与仓库背景，并能正确使用第一个操作建立的上下文。
 3. 主控能够等待 idle 并取得最终消息、工具结果摘要和状态。
-4. compact 后会话仍能根据胶囊继续正确工作。
+4. 驱动器能识别自动 `compaction/*` 事件，并在 compact 后继续使用同一会话；单元验收使用合成事件，真实开发会话在自然触发压缩时补充现场验证，不为验收故意制造高 token 消耗。
 5. DSH 无法写 Git 元数据，Codex 可以在审核后正常提交。
 6. 同一工作树的并发写入会话会被拒绝。
 7. 会话登记和成本指标中不包含凭据或隐藏推理。
