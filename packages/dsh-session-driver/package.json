@@ -1,0 +1,14 @@
+{
+  "name": "@writex/dsh-session-driver",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@deepseek-ai/dsh-llm": "0.1.2-rc.1",
+    "@deepseek-ai/dsh-sdk-client": "0.1.2-rc.1",
+    "@writex/workspace": "workspace:*"
+  }
+}

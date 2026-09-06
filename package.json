@@ -7,7 +7,9 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "writex": "tsx apps/cli/src/bin.ts"
+    "writex": "tsx apps/cli/src/bin.ts",
+    "dsh:driver": "tsx packages/dsh-session-driver/src/bin.ts",
+    "test:dsh-live": "tsx tests/live/dsh-session-probe.ts"
   },
   "devDependencies": {
     "@types/node": "^26.4.1",
