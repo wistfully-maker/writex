@@ -22,6 +22,35 @@ const zeroUsage = (): UsageSummary => ({
   reasoningTokens: 0,
 })
 
+function isObject(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === 'object' && !Array.isArray(value)
+}
+
+/**
+ * A run settles with `session.status: idle` even when its terminal
+ * `turn/end` carried `reason.kind === 'error'` (the runtime reports the
+ * failure as an event instead of a transport error). Treat that terminal
+ * error like any other run failure: throw using the structured
+ * `reason.error.message` so a swallowed failure (for example a disk id
+ * collision that prevented resuming a session) never returns idle success.
+ */
+function terminalTurnEndError(events: unknown[]): Error | null {
+  for (let index = events.length - 1; index >= 0; index -= 1) {
+    const event = events[index]
+    if (!isObject(event) || event.type !== 'turn/end') continue
+    const data = event.data
+    const reason = isObject(data) ? data.reason : undefined
+    if (!isObject(reason) || reason.kind !== 'error') continue
+    const failure = reason.error
+    const message =
+      isObject(failure) && typeof failure.message === 'string' && failure.message !== ''
+        ? failure.message
+        : 'session turn ended in error'
+    return new Error(message)
+  }
+  return null
+}
+
 export class PersistentDshSessionDriver {
   private busy = false
   private closed = false
@@ -80,6 +109,8 @@ export class PersistentDshSessionDriver {
       await this.registry.update(this.config.workstreamId, (current) => ({ ...current, status: 'busy' }))
       try {
         const result = await this.session.run(message)
+        const turnError = terminalTurnEndError(result.events)
+        if (turnError) throw turnError
         const summary = summarizeEvents(result.events)
         const updated = await this.registry.update(this.config.workstreamId, (current) => ({
           ...current,

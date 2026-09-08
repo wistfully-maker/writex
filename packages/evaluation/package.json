@@ -1,5 +1,5 @@
 {
-  "name": "@writex/cli",
+  "name": "@writex/evaluation",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -8,10 +8,8 @@
   },
   "dependencies": {
     "@writex/contracts": "workspace:*",
-    "@writex/evaluation": "workspace:*",
     "@writex/model-gateway": "workspace:*",
     "@writex/quality": "workspace:*",
-    "@writex/workspace": "workspace:*",
-    "commander": "^13.1.0"
+    "@writex/workspace": "workspace:*"
   }
 }

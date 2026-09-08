@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "apiKeyEnv": "DEEPSEEK_API_KEY",
+  "baseUrl": "https://api.deepseek.com",
+  "timeoutMs": 60000,
+  "maxOutputTokens": 4096,
+  "thinking": { "type": "disabled" },
+  "budgetUsd": 5,
+  "priceTable": {
+    "currency": "USD",
+    "source": "https://api-docs.deepseek.com/quick_start/pricing",
+    "effectiveDate": "2026-09-07",
+    "perMTokens": {
+      "deepseek-v4-flash": {
+        "inputCacheHitUsdPerMTokens": 0.014,
+        "inputCacheMissUsdPerMTokens": 0.44,
+        "outputUsdPerMTokens": 1.32
+      },
+      "deepseek-v4-pro": {
+        "inputCacheHitUsdPerMTokens": 0.044,
+        "inputCacheMissUsdPerMTokens": 1.32,
+        "outputUsdPerMTokens": 3.96
+      }
+    }
+  }
+}

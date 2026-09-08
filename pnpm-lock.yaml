@@ -26,6 +26,12 @@ importers:
       '@writex/contracts':
         specifier: workspace:*
         version: link:../../packages/contracts
+      '@writex/evaluation':
+        specifier: workspace:*
+        version: link:../../packages/evaluation
+      '@writex/model-gateway':
+        specifier: workspace:*
+        version: link:../../packages/model-gateway
       '@writex/quality':
         specifier: workspace:*
         version: link:../../packages/quality
@@ -55,6 +61,21 @@ importers:
       '@deepseek-ai/dsh-sdk-client':
         specifier: 0.1.2-rc.1
         version: 0.1.2-rc.1(74b9df5793dd85fa663eb4fa5199250e)
+      '@writex/workspace':
+        specifier: workspace:*
+        version: link:../workspace
+
+  packages/evaluation:
+    dependencies:
+      '@writex/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      '@writex/model-gateway':
+        specifier: workspace:*
+        version: link:../model-gateway
+      '@writex/quality':
+        specifier: workspace:*
+        version: link:../quality
       '@writex/workspace':
         specifier: workspace:*
         version: link:../workspace

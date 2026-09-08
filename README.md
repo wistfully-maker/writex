@@ -51,9 +51,72 @@ Codex 在该进程的 stdin 上逐行写入 JSON 命令，stdout 每行返回一
 - **写锁**：同一工作区同时只允许一个活跃 DSH 写入者；异常残留锁会按 pid 存活与否自动回收。
 - **真人验证**：`pnpm test:dsh-live` 默认只打印跳过信息；经 Codex 审查并授权后 `pnpm test:dsh-live -- --live` 会对 `deepseek-v4-flash` 跑一次付费探针。
 
+## 文学模型评测（DeepSeek Flash / Pro）
+
+`packages/evaluation` 提供可复现的小规模文学模型评测：三个独立场景题 + 一段三步连续续写，共 12 次正文生成，然后匿名盲选、可选 LLM 诊断与揭盲报告。完整设计见 [2026-09-07-literary-model-evaluation-design](docs/superpowers/specs/2026-09-07-literary-model-evaluation-design.md)。
+
+```bash
+# 1. 准备评测配置（复制示例并按需修改预算/价格）
+cp packages/evaluation/config.example.json ./eval-config.json
+
+# 2. 初始化运行根（create-only），打印 configHash/fixtureHash
+pnpm writex eval init ./eval-run --config ./eval-config.json
+
+# 3. 计划（dry）：打印确定的 12 次请求与预算估算，零网络调用
+pnpm writex eval plan ./eval-run --json
+
+# 4. 生成：默认 dry（零网络）；显式 --live 才调用真实 DeepSeek API
+pnpm writex eval run ./eval-run                 # dry
+pnpm writex eval run ./eval-run --live          # 12 次真实正文生成
+pnpm writex eval run ./eval-run --live --retry-failed   # 恢复中断/失败项
+
+# 5. 匿名导出：每题一个 Markdown + 投票模板；模型映射保存在
+#    ./eval-run/blind/mapping.json，绝不写入盲选文件名或正文元数据
+pnpm writex eval export ./eval-run
+
+# 6. 人工盲选：编辑导出模板 ballot.template.json——把每组的 choice 从 null
+#    改成 "A" / "B" / "tie"(并列) / "neither"(全部不合格)，可附 reason；
+#    四个绑定哈希（configHash/fixtureHash/mappingHash/artifactsHash）保持
+#    原样（缺失或改动都会被拒绝）。例：
+#    { "reunion": { "choice": "tie", "reason": "A 开篇更好，B 收束更准" },
+#      "costly-choice": { "choice": "neither", "reason": "两篇都偏直白" },
+#      "limited-reveal": { "choice": "A" },
+#      "continuity": { "choice": "B" } }
+pnpm writex eval vote ./eval-run --ballot ./ballot.json
+
+# 7. 可选诊断：必须先记录完整投票。8 个候选各一次诊断请求
+pnpm writex eval diagnose ./eval-run                  # dry，先看计划
+pnpm writex eval diagnose ./eval-run --live           # 8 次诊断
+pnpm writex eval diagnose ./eval-run --live --model pro   # 诊断裁判用 Pro
+
+# 8. 揭盲报告：人工选择 +（可用的）诊断分数 + 用量费用 + 局限说明
+pnpm writex eval report ./eval-run
+pnpm writex eval report ./eval-run --gate ./my-gate.json   # 自定义权重重算，无需 API
+```
+
+本机密钥设置（在本地 PowerShell 完成，密钥不落盘到评测产物，也请不要粘贴到聊天/报告中）：
+
+```powershell
+# 隐藏输入；只设置当前终端及其子进程的环境变量
+$env:DEEPSEEK_API_KEY = [System.Net.NetworkCredential]::new('', (Read-Host 'DeepSeek API key' -AsSecureString)).Password
+# 在同一个终端执行上面的 eval run / diagnose --live 命令。
+# 全部调用完成后清除当前终端中的密钥：
+# Remove-Item Env:DEEPSEEK_API_KEY
+```
+
+运行约定：
+
+- **DeepSeek API 密钥只来自环境变量**：配置里的 `apiKeyEnv`（默认 `DEEPSEEK_API_KEY`）只存变量名，密钥值永不落盘或进入报告；配置示例、价格表来源与生效日期都写在 `config.json`。
+- **无 `--live` 不产生任何网络生成请求**；认证失败立即停止整批；限流/超时/服务错误记录为失败，首版不自动重发可能已计费的请求。
+- **预算在每次请求前检查并预留**（失败/不确定项保留预留额），生成与诊断共用同一份预算；未知用量/价格显示未知，绝不当作零。预留与花费都是估算，不是计费账单。
+- **成功结果从不自动重跑**；崩溃恢复后 `in-flight` 项变成 `uncertain`，只有显式 `--retry-failed` 才会重试，重试成功会清除该次的错误记录但保留累计预留（历史）。
+- **流程门**：盲选导出需要 12 篇全部成功；诊断与揭盲报告需要已记录的完整投票；诊断必须逐字引用原文，任何捏造引用/越界分数都记为该诊断失败，绝不悄悄修复或打零分。
+- **局限披露**：每模型每任务只有 1 个样本；诊断裁判与生成同厂商（默认 `deepseek-v4-flash`），报告会注明同厂商裁判偏差；工程测试通过 ≠ 文学质量结论。
+- **凭据边界**：真实文学评测使用上面的 `DEEPSEEK_API_KEY`；DSH 开发会话凭据属于开发基础设施，二者分离，本评测代码不读取 DSH 内部凭据，也不使用 OpenAI。
+
 ## 当前实现说明
 
-本仓库的小说生产主链路当前仍处于 **foundation（地基）阶段**，尚未接入真实文学模型。章节评估、质量门槛（quality gate）等环节目前由确定性的本地代码与测试替身完成，模型网关（`packages/model-gateway`）仅提供假的客户端占位，供后续接入真实模型时替换。上面的 DSH 会话驱动属于开发基础设施，只有执行 `send` 或显式运行 `--live` 探针时才会产生真实 DeepSeek 模型调用；运行记录中的 `inputHash` 等字段本身不会触发网络请求。
+本仓库的小说生产主链路仍处于 **foundation（地基）阶段**：常规写作/质量工作流尚未接入真实文学模型。与此同时，本仓库已具备可运行的**真实模型评测**：`packages/model-gateway` 提供经注入式 HTTP 测试替身验证的 DeepSeek 适配器（无 OpenAI），`pnpm writex eval …` 仅在显式 `--live` 时通过 `DEEPSEEK_API_KEY` 调用真实 DeepSeek Flash/Pro（盲选/诊断/揭盲报告流程见上文）；日常测试全部使用本地替身，默认不产生任何网络请求。DSH 会话驱动属于开发基础设施，同样只在执行 `send` 或显式 live 探针时产生模型调用。
 
 ## 详细设计
 

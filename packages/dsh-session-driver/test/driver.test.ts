@@ -255,6 +255,46 @@ describe('PersistentDshSessionDriver', () => {
     await driver.close()
   })
 
+  it('throws when the run settles idle but its terminal turn/end reason is an error', async () => {
+    // Regression: the runtime reports a failed turn (e.g. a disk id collision
+    // that prevented resuming the session) as a `turn/end` event with
+    // `data.reason.kind === 'error'` while still sending `session.status:
+    // idle`. The driver must surface reason.error.message instead of returning
+    // an idle success that swallows the failure.
+    const { driver, controllerRoot } = await setup(async () => ({
+      sessionId: SESSION_ID,
+      finalResponse: '',
+      events: [
+        messageEvent(),
+        {
+          type: 'turn/end',
+          data: {
+            turn: 1,
+            reason: {
+              kind: 'error',
+              error: {
+                message:
+                  'disk id collision: another runtime owns session session-driver-v1',
+                code: 'UNKNOWN',
+              },
+            },
+          },
+        },
+      ],
+      notifications: [],
+    }))
+
+    await expect(driver.send('resume previous work')).rejects.toThrow(
+      'disk id collision: another runtime owns session session-driver-v1',
+    )
+
+    const record = await new WorkstreamRegistry(controllerRoot).read(WORKSTREAM_ID)
+    expect(record.status).toBe('blocked')
+    expect(record.promptCount).toBe(0)
+
+    await driver.close()
+  })
+
   it('resets the busy flag when the busy-status registry write fails, so a later send succeeds', async () => {
     const { driver, controllerRoot } = await setup()
 

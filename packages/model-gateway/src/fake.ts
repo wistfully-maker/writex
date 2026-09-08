@@ -1,8 +1,24 @@
 import type {
   GenerationRequest,
   GenerationResult,
+  GenerationUsage,
   ModelGateway,
 } from '@writex/contracts'
+
+/**
+ * Synthetic usage reported by the fake. These are NOT token counts: they are
+ * derived from string lengths so tests get deterministic numbers. Only tests
+ * that assert request wiring or budget accounting may rely on them; real
+ * tokenizers report real usage through the adapters.
+ */
+export interface FakeUsage extends GenerationUsage {
+  inputTokens: number
+  outputTokens: number
+}
+
+export interface FakeGenerationResult extends GenerationResult {
+  usage: FakeUsage
+}
 
 export class FakeModelGateway implements ModelGateway {
   readonly requests: GenerationRequest[] = []
@@ -12,7 +28,7 @@ export class FakeModelGateway implements ModelGateway {
     this.queue = [...responses]
   }
 
-  async generate(request: GenerationRequest): Promise<GenerationResult> {
+  async generate(request: GenerationRequest): Promise<FakeGenerationResult> {
     this.requests.push(structuredClone(request))
     const text = this.queue.shift()
     if (text === undefined) {

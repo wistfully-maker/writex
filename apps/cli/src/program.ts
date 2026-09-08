@@ -4,6 +4,10 @@ import { Command } from 'commander'
 import type { CandidateEvaluation } from '@writex/contracts'
 import { defaultQualityGate, scoreQuality } from '@writex/quality'
 import { initNovelWorkspace, loadNovelConfig } from '@writex/workspace'
+import {
+  registerEvaluationCommands,
+  type EvaluationCommandHooks,
+} from './evaluation.js'
 
 export type WriteFn = (chunk: string) => unknown
 
@@ -32,7 +36,10 @@ interface StatusOptions {
   json?: boolean
 }
 
-export function createProgram(writeOut: WriteFn = process.stdout.write.bind(process.stdout)): Command {
+export function createProgram(
+  writeOut: WriteFn = process.stdout.write.bind(process.stdout),
+  hooks: EvaluationCommandHooks = {},
+): Command {
   const program = new Command()
 
   program
@@ -98,6 +105,8 @@ export function createProgram(writeOut: WriteFn = process.stdout.write.bind(proc
         writeOut(`Score ${decision.total}: ${decision.passed ? 'PASS' : 'FAIL'}\n`)
       }
     })
+
+  registerEvaluationCommands(program, writeOut, hooks)
 
   return program
 }

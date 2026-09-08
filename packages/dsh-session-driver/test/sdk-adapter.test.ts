@@ -55,6 +55,7 @@ describe('createOfficialDshHarnessFactory', () => {
     expect(harness).toBeDefined()
     expect(record.constructed).toHaveLength(1)
     expect(record.constructed[0]).toEqual({
+      initializeTimeoutMs: 60_000,
       profile: 'sdk',
       cwd: absoluteWorkspace,
       processCwd: absoluteWorkspace,
@@ -75,6 +76,7 @@ describe('createOfficialDshHarnessFactory', () => {
     createOfficialDshHarnessFactory(record.Constructor)(minimal)
 
     expect(record.constructed[0]).toEqual({
+      initializeTimeoutMs: 60_000,
       profile: 'sdk',
       cwd: absoluteWorkspace,
       processCwd: absoluteWorkspace,

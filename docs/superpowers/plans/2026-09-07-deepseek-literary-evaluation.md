@@ -4,6 +4,10 @@
 **Architecture:** Extend the gateway with injectable fetch; put evaluation logic in packages/evaluation; CLI delegates to small functions. Persist attempts before requests and keep blind artifacts separate from private records. Existing foundation APIs remain compatible.
 **Execution:** One persistent DSH session implements all slices and review corrections. Codex owns Git and final verification. Existing isolated worktree, branch codex/deepseek-literary-evaluation.
 
+## Recovery checkpoint (2026-09-08)
+
+Slices 1/2 and first review corrections persisted before the controller exited. Independent verification: typecheck and 177 tests pass after pnpm relinking. SDK 0.1.2-rc.1 cannot reopen the old named session in a new runtime: turn/end reports a persisted-log ID collision. Preserve the old log; recovery uses session-deepseek-literary-evaluation-v1-sept8 for all remaining work. The SDK initialization timeout is now 60 seconds. Error turn endings must be surfaced by the driver, not reported as idle success. Remaining slices3/4 and durability review remain required before completion.
+
 ## Slice 1 — DeepSeek gateway
 
 - [ ] Add packages/model-gateway/src/deepseek.ts and test/deepseek.test.ts; export via index.ts. Extend contracts/model.ts with optional completion state, response ID, cache/reasoning usage; preserve FakeModel compatibility.
@@ -34,6 +38,8 @@
 - [ ] Deterministic E2E through fake gateway covers full lifecycle. pnpm typecheck; pnpm test -- --configLoader=runner; git diff --check. CLI help and dry plan smoke. Real literary calls only after estimates and credential readiness; do not fetch secrets from DSH internal storage.
 
 ## Review and delivery
+
+Engineering verification completed 2026-09-08: all four slices implemented; Codex independently ran typecheck (exit 0), full suite (25 files / 204 tests passed), git diff --check, CLI init/plan/default dry-run (12 planned, zero gateway calls). Reviews fixed wire parameters, full-body timeout, unknown/cached usage accounting, continuation context, durable reservations/history, stable anonymous mapping and mandatory ballot hashes, diagnostic result integrity/evidence, JSON output and model routing. CLI sample preflight estimates about USD 0.20 for twelve drafts at configured peak prices; diagnoses are separate. Real literary generation, human blind voting, and real diagnostic report remain pending DEEPSEEK_API_KEY configuration and user input. Engineering verification is not evidence of literary quality.
 
 - [ ] Codex reviews all new sources, verifies tests independently and sends consolidated fixes to SAME DSH session.
 - [ ] Save capsule, close session, verify lock removed. Commit/push only scoped files. Report engineering completion separately from user literary blind vote completion.

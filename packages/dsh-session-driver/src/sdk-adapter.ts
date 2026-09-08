@@ -25,6 +25,7 @@ export function createOfficialDshHarnessFactory(
 ): DshHarnessFactory {
   return (config: WorkstreamConfig) => {
     const sdk = new Constructor({
+      initializeTimeoutMs: 60_000,
       profile: config.profile,
       cwd: config.workspace,
       processCwd: config.workspace,
