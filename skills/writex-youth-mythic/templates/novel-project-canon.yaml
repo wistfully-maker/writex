@@ -1,0 +1,51 @@
+schema_version: 1
+project:
+  project_id: ''
+  canon_version: '0.1'
+  status: IDEA
+  working_title: ''
+  final_title: null
+positioning:
+  platform: ''
+  channel: ''
+  audience: ''
+  genre: ''
+  subgenres: []
+  target_length: ''
+  primary_reader_promise: ''
+  first_3_chapter_promise: []
+  first_10_chapter_promise: []
+literary_core:
+  perennial_question: ''
+  specific_life_situation: ''
+  impossible_choice: ''
+  ending_cost: ''
+commercial_core:
+  one_sentence_hook: ''
+  fantasy_value: ''
+  cost_or_contradiction: ''
+  book_mystery: ''
+world:
+  rules: []
+  unknown_ceiling: ''
+  public_understanding: ''
+  author_truth: ''
+characters: []
+relationships: []
+book_architecture:
+  opening: ''
+  development: ''
+  climax: ''
+  ending: ''
+  volumes: []
+  protected_truths: []
+  ending_contract: []
+visual_bible:
+  visual_promise: ''
+  world_signals: []
+  recurring_symbols: []
+  prohibited_cliches: []
+  typography_direction: ''
+publication:
+  public_spoiler_boundary: ''
+  marketing_internal_boundary: ''

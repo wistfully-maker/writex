@@ -1,0 +1,27 @@
+{
+  "version": "0.3.0",
+  "base": "WriteX Stage 6",
+  "integrated_layers": [
+    "7A",
+    "7B",
+    "7C",
+    "7D",
+    "7E",
+    "7F",
+    "7G",
+    "Stage8"
+  ],
+  "hard_gate_count": 24,
+  "quality_gate_count": 21,
+  "pattern_count": 66,
+  "foreground_module_default_max": 2,
+  "new_capabilities": [
+    "ensemble_character_life",
+    "offscreen_life_clock",
+    "remove_protagonist_test",
+    "whole_book_project_lifecycle",
+    "publishing_package",
+    "visual_skill_handoff",
+    "asset_canon_versioning"
+  ]
+}

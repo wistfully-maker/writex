@@ -1,0 +1,68 @@
+banter_mode:
+  distance:
+  - L3_character_saturated
+  - L4_interior_spiral
+  sentence_shape: 短—中句为主，允许问号、感叹、打断和快速反应。
+  dialogue: 高
+  description: 低到中；只保留能制造笑点/地位/关系的物件。
+  humor: 高，但笑点来自人物，不来自作者万能吐槽。
+  interiority: 短促、跳跃、联想强。
+  metaphor: 日常/流行文化/职业域。
+  risk: 不能让所有角色都学同一种贫嘴。
+quiet_emotional_mode:
+  distance:
+  - L3_character_saturated
+  - L4_interior_spiral
+  - L5_afterimage_reflection
+  sentence_shape: 中句与少量长句，关键认知前后允许突然短句。
+  dialogue: 低到中。
+  description: 具体物件、空位、声音、日常动作。
+  humor: 极低，但可保留人物防御式微弱自嘲。
+  interiority: 从具体触发物逐层深入。
+  metaphor: 单一主导域。
+  risk: 禁止直接宣布‘他很悲伤/她是生命的光’。
+lore_revelation_mode:
+  distance:
+  - L2_scene_external
+  - L3_character_saturated
+  sentence_shape: 中长句，可使用因果链和类比解释。
+  dialogue: 中。
+  description: 以可操作信息为主。
+  humor: 用来降低百科感，但必须符合听者/讲者。
+  interiority: 负责质疑、误读、类比，让 lore 被 POV 消化。
+  metaphor: 解释型、角色知识域。
+  risk: 问答式百科和连续专有名词。
+competence_mode:
+  distance:
+  - L2_scene_external
+  - L3_character_saturated
+  sentence_shape: 动作与技术细节交替，逻辑清楚。
+  dialogue: 命令、确认、短解释。
+  description: 工具、流程、空间、时间。
+  humor: 低到中，来自压力下的人物反应。
+  interiority: 少量，只用于决策和风险判断。
+  metaphor: 少；避免专业场景被诗意淹没。
+  risk: 炫术语而无决策。
+mythic_battle_mode:
+  distance:
+  - L1_mythic_panorama
+  - L2_scene_external
+  - L3_character_saturated
+  sentence_shape: 长句建立规模，短句完成撞击/转折；二者交替。
+  dialogue: 低。
+  description: 空间几何、光热、材质破坏、身体后果。
+  humor: 极低；除非 POV 的防御机制必须存在。
+  interiority: 关键节点进入，不能每招都解释。
+  metaphor: 物理视觉 + 神话尺度，但同一 beat 控制域数量。
+  risk: 只写更快更强更亮，没有位置与代价。
+afterimage_ending_mode:
+  distance:
+  - L5_afterimage_reflection
+  - L3_character_saturated
+  sentence_shape: 由中长句逐步收窄，最后落在短动作/物件/事实。
+  dialogue: 极低到低。
+  description: 回收旧载体并改变意义。
+  humor: 通常无；若有只能是苦涩、人物特有。
+  interiority: 允许一次命名，但禁止全章总结。
+  metaphor: 少而准。
+  risk: 变成固定‘余韵文艺结尾’套路。

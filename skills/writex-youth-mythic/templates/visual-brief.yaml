@@ -1,0 +1,18 @@
+source:
+  project_id: ''
+  canon_version: ''
+  spoiler_level: public
+asset:
+  type: cover
+  platform: ''
+  purpose: ''
+brief:
+  primary_reader_promise: ''
+  focal_subject: ''
+  world_signals: []
+  recurring_symbols: []
+  composition_priority: ''
+  emotional_temperature: ''
+  must_include: []
+  must_avoid: []
+  text_elements: []

@@ -1,0 +1,78 @@
+reader_drive:
+- doorway_inversion
+- status_whiplash
+- warmth_before_revelation
+- normality_reservoir
+- false_objective
+- romantic_oasis_with_deadline
+- cascade_climax
+- reader_memory_alliance
+- known_tragedy_tension
+character:
+- recognition_mismatch
+- reliability_with_rare_cracks
+- pride_as_moral_code
+- warmth_survives_secret
+- power_cannot_buy_ordinary_life
+- competence_as_prison
+- wound_creates_beauty_and_danger
+relationship:
+- recognition_mismatch_relationship
+- intimacy_under_hidden_identity
+- ordinary_world_sanctuary
+- caregiving_inversion
+- love_revenge_double_bind
+- transactional_intimacy
+- commitment_need_mismatch
+- guardian_personhood_conflict
+type_pleasure:
+- anomaly_before_ontology
+- human_anchor_before_identity_reveal
+- reveal_ladder
+- double_payoff_reveal
+- costed_power_payoff
+- competence_with_problem
+- operational_worldbuilding
+- epistemic_threat
+- unknown_ceiling
+- payoff_then_widen
+emotion:
+- normality_deposit
+- counterfactual_future
+- shadow_before_impact
+- functional_numbness
+- afterimage_release
+- third_party_afterimage
+- victory_private_loss_crossfade
+- role_reversion_at_peak
+- negative_space_grief
+- recognition_arrives_too_late
+- humor_as_pressure_valve
+- residual_change
+prose:
+- character_saturated_narration
+- interior_spiral
+- comic_deflation_emotional_rebound
+- selective_anchoring
+- character_domain_metaphor
+- spatial_geometry
+- sentence_rhythm_breathing
+- dialogue_permission_shift
+- retrospective_shadow
+- residual_image_ending
+policy:
+  patterns_are_optional: true
+  do_not_select_by_source_similarity: true
+  select_by_story_function: true
+  default_primary_patterns_per_scene_max: 2
+ensemble_life:
+- parallel_life_clock
+- offscreen_progression
+- non_protagonist_relationship
+- ordinary_ambition
+- life_intersection
+- delayed_return_with_change
+- work_home_tension
+- supporting_character_refusal
+- inherited_routine
+- independent_ending_state

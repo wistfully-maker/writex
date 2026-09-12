@@ -1,0 +1,65 @@
+schema_version: 1
+name: Ensemble Character Life Engine
+character_tiers:
+  A:
+    scope: book
+    requires:
+    - personal_goal
+    - private_problem
+    - non_protagonist_relationship
+    - independent_conflict
+    - offscreen_life_clock
+    - irreversible_choice
+    - ending_state
+  B:
+    scope: multi_volume
+    requires:
+    - personal_goal
+    - job_or_role
+    - ordinary_routine
+    - non_protagonist_relationship
+    - independent_conflict
+    - offscreen_life_clock
+    - ending_state
+  C:
+    scope: volume
+    requires:
+    - pre_plot_life
+    - immediate_goal
+    - independent_choice
+    - post_volume_consequence
+  D:
+    scope: event
+    requires:
+    - pre_entry_activity
+    - immediate_want
+    - loss_target
+    - one_concrete_human_detail
+hard_gates:
+- tier_A_or_B_requires_non_protagonist_relationship
+- tier_A_or_B_requires_ending_state
+- tier_B_requires_offscreen_life_clock
+- tier_C_requires_post_volume_consequence
+quality_gates:
+- remove_protagonist_test
+- offscreen_changes_feel_causal_not_random
+- ordinary_life_specific_not_generic
+- supporting_character_has_independent_agency
+- cast_relationships_form_graph_not_only_protagonist_wheel
+- life_arc_intersects_main_plot_without_becoming_filler
+- ending_answers_what_happened_to_their_own_life
+risks:
+- protagonist_orbiting_character
+- frozen_supporting_life
+- supporting_character_toolization
+- fake_independent_subplot
+- family_as_stakes_prop
+- ensemble_bloat
+- offscreen_change_without_seed
+audit:
+  recurring_character_return_check: When a Tier A/B character returns after meaningful
+    absence, compare current life state to last appearance.
+  volume_end_check: Update every active Tier A/B Life Clock and close or transform
+    Tier C arcs.
+  do_not_force_change: A stable period is valid if stability itself is plausible and
+    intentional.

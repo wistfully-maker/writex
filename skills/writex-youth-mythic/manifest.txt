@@ -1,0 +1,4 @@
+writex-youth-mythic 0.3.0
+extends: writex-base-stage6
+layers: 7A,7B,7C,7D,7E,7F,7G,Stage8
+mode: original-fiction-longform-and-ip-project-studio

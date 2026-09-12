@@ -1,0 +1,97 @@
+schema_version: 2
+module: writex-youth-mythic-integrated-v0.3
+extends: writex-base-stage6
+originality:
+  named_author_imitation: forbidden
+  source_specific_character_or_world_copying: forbidden
+  mechanism_level_abstraction: allowed
+priority_order:
+- canon_pov_legality
+- human_approval_and_protected_promises
+- literary_core_and_impossible_choice
+- longform_structural_closure
+- character_relationship_causality
+- reader_drive_and_type_payoff
+- emotional_timing
+- prose_flourish
+module_activation:
+  foreground_default_max_per_scene: 2
+  foreground_hard_max_per_scene: 3
+  reader_drive:
+  - volume_plan
+  - sequence_plan
+  - question_move
+  - payoff
+  character_magnetism:
+  - major_entry
+  - competence_proof
+  - vulnerability
+  - agency
+  - refresh_due
+  relationship_tension:
+  - relationship_critical
+  - boundary
+  - secret_pressure
+  - rupture
+  - repair
+  type_pleasure:
+  - mystery
+  - identity_reveal
+  - capability_payoff
+  - world_reveal
+  emotional_orchestration:
+  - deposit
+  - shadow
+  - impact
+  - afterimage
+  - release
+  adaptive_prose:
+  - all_drafting
+  ensemble_character_life:
+  - recurring_supporting_cast
+  - volume_guest_character
+  - offscreen_return
+  - cast_life_audit
+  project_orchestrator:
+  - new_book_project
+  - whole_book_architecture
+  - publishing_package
+  - visual_handoff
+hard_gates:
+- base_writeX_gate_passes
+- pov_secrets_legal
+- human_acceptance_before_canonical_commit
+- cliffhanger_requires_local_closure
+- major_reveal_declares_consequence
+- relationship_repair_declares_cost
+- afterimage_release_uses_seeded_carrier
+- major_power_payoff_declares_constraint_or_cost
+- state_change_declared_for_major_relationship_event
+- book_level_protected_promises_not_paid_early
+- tier_A_or_B_requires_non_protagonist_relationship
+- tier_B_requires_offscreen_life_clock
+- drafting_requires_human_architecture_approval_for_project_mode
+- marketing_and_visual_assets_must_reference_canon_version
+quality_gates:
+- ordinary_deposits_sufficient_for_major_loss
+- character_magnetism_refresh_is_meaningful
+- relationship_asymmetry_is_durable_not_trivial_misunderstanding
+- mystery_ladder_advances_not_only_inflates
+- worldbuilding_is_operational
+- emotional_release_is_character_specific
+- prose_voice_is_pov_owned
+- description_is_selective_and_functional
+- ending_shape_not_mechanically_repeated
+- supporting_characters_have_independent_life_direction
+- remove_protagonist_test_passes_for_important_supporting_characters
+- offscreen_changes_are_causal_not_random
+- cast_relationships_are_not_only_protagonist_centered
+- marketing_promise_matches_actual_reading_experience
+pattern_policy:
+  optional_only: true
+  max_primary_patterns_per_scene: 2
+  must_not_force_for_variety: true
+candidate_strategy_defaults:
+- voice_and_relationship_truth
+- scene_propulsion_and_visual_clarity
+- subtext_and_emotional_delay

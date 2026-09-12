@@ -1,0 +1,22 @@
+character_life:
+  character_id: ''
+  tier: B
+  social_identity: ''
+  job_or_role: ''
+  economic_reality: ''
+  ordinary_routine: []
+  personal_goal: ''
+  private_problem: ''
+  shame_or_defense: ''
+  non_protagonist_relationships: []
+  independent_conflict: ''
+  independent_choice_history: []
+  life_clock:
+    current_state: ''
+    next_offscreen_change: ''
+    trigger: ''
+    expected_window: ''
+  intersection_with_main_plot: ''
+  loss_target: ''
+  growth_or_decline_direction: ''
+  ending_state: ''

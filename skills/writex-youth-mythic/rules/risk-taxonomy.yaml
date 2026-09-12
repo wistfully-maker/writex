@@ -1,0 +1,73 @@
+schema_version: 1
+risks:
+  reader_drive:
+  - question_inflation
+  - local_payoff_missing
+  - cliffhanger_substitution
+  - monotonic_escalation
+  character:
+  - character_magnetism_stagnation
+  - power_resolved_character_core
+  - protagonist_orbiting_character
+  - generic_vulnerability
+  relationship:
+  - relationship_stagnation
+  - misunderstanding_loop
+  - one_sided_agency
+  - unpaid_sacrifice
+  - repair_without_cost
+  - secret_cancelled_intimacy
+  type_pleasure:
+  - mystery_debt_overload
+  - fake_mystery_by_withholding
+  - reveal_without_consequence
+  - power_payoff_without_cost
+  - power_creep
+  - lore_dump
+  - spectacle_without_state_change
+  emotion:
+  - unearned_grief
+  - instant_overexplanation
+  - release_without_seed
+  - post_tragedy_reset
+  - melodrama_stacking
+  - counterfactual_future_missing
+  - impact_without_residue
+  prose:
+  - uniform_narrator_voice
+  - generic_poetic_monologue
+  - metaphor_domain_drift
+  - overwritten_description
+  - dialogue_voice_collapse
+  - humor_overuse
+  - retrospective_tic
+  - ending_shape_repetition
+  - sentence_rhythm_flatness
+  ensemble_life:
+  - protagonist_orbiting_character
+  - frozen_supporting_life
+  - supporting_character_toolization
+  - fake_independent_subplot
+  - family_as_stakes_prop
+  - ensemble_bloat
+  - offscreen_change_without_seed
+  project_orchestration:
+  - architecture_bypass
+  - marketing_canon_drift
+  - visual_canon_drift
+  - spoiler_boundary_violation
+  - stale_project_asset
+  - platform_promise_mismatch
+severity_rule:
+  veto:
+  - pov_knowledge_leak
+  - premature_book_promise_payoff
+  - human_acceptance_bypass
+  - architecture_bypass
+  - spoiler_boundary_violation
+  high_if_unrepaired:
+  - local_payoff_missing
+  - repair_without_cost
+  - reveal_without_consequence
+  - release_without_seed
+  - post_tragedy_reset

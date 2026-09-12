@@ -1,0 +1,36 @@
+schema_version: 1
+name: Novel Project Orchestrator
+states:
+- IDEA
+- POSITIONED
+- PROJECT_CANON_READY
+- BOOK_ARCHITECTURE_READY
+- HUMAN_ARCHITECTURE_APPROVED
+- DRAFTING
+- VOLUME_REVIEW
+- PUBLICATION_PACKAGE_READY
+- VISUAL_HANDOFF_READY
+- RELEASE_READY
+hard_gates:
+- drafting_requires_human_architecture_approval
+- publication_package_uses_approved_canon
+- visual_brief_declares_spoiler_level
+- visual_brief_declares_canon_version
+- protected_truth_changes_require_replan
+- marketing_copy_must_not_invent_canon
+project_outputs:
+- novel_project_canon
+- book_architecture
+- volume_blueprints
+- character_life_ledgers
+- reader_question_ledger
+- publishing_package
+- visual_bible
+- cover_brief
+- character_visual_briefs
+- volume_poster_briefs
+- marketing_copy_pack
+external_visual_strategy:
+  embedded_visual_style_rules: false
+  use_adapter_briefs: true
+  mark_assets_stale_when_source_canon_changes: true
